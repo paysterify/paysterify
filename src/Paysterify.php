@@ -147,4 +147,14 @@ class Paysterify
     {
         return $this->gateway->isCompleted();
     }
+
+    /**
+     * Retrive the request response.
+     *
+     * @return object
+     */
+    public function getResponse()
+    {
+        return $this->response;
+    }
 }
