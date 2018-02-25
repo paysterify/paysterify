@@ -69,10 +69,9 @@ class Paysterify
     /**
      * Authorize the gateway.
      *
-     * @param  array  $config
      * @return Paysterify
      */
-    public function authorize(array $config = null)
+    public function authorize()
     {
         $this->response = $this->gateway->authorize();
 
