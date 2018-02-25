@@ -35,7 +35,7 @@ class Paysterify
     protected $config;
 
     /**
-     * Define given gateway.
+     * Resolve given gateway alias.
      *
      * @param  string  $gateway
      * @return Paysterify
@@ -90,39 +90,7 @@ class Paysterify
     {
         $this->response = $this->gateway->purchase();
 
-        // dd($this->response);
-
         $this->gateway->response = $this->response;
-
-        return $this;
-    }
-
-    /**
-     * Validate the given options against gateway requirements.
-     *
-     * @param  array  $options
-     * @param  array  $requirements
-     * @return boolean
-     */
-    public function validateOptions($options, $requirements)
-    {
-        foreach ($requirements as $requirement) {
-            if (isset($options[$requirement])) {
-                continue;
-            }
-
-            throw new Exception($requirement.' is missing.');
-        }
-    }
-
-    /**
-     * Send the purchase request.
-     *
-     * @return mixed
-     */
-    public function send()
-    {
-        $response = $this->gateway->send();
 
         return $this;
     }
@@ -156,7 +124,13 @@ class Paysterify
         return $this;
     }
 
-    public function completePurchase($params)
+    /**
+     * Perform a complete purchase request.
+     *
+     * @param  array $params
+     * @return Paysterify
+     */
+    public function completePurchase($params = [])
     {
         $this->response = $this->gateway->completePurchase($params);
 
@@ -165,6 +139,11 @@ class Paysterify
         return $this;
     }
 
+    /**
+     * Assert if the payment is completed.
+     *
+     * @return boolean
+     */
     public function isCompleted()
     {
         return $this->gateway->isCompleted();
